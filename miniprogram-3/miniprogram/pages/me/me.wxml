@@ -1,0 +1,33 @@
+<!-- miniprogram/pages/me/me.wxml -->
+<view class="user-container">
+  <!-- 个人中心,
+  功能
+  获取个人信息
+  微信登录
+  获取openid
+  扫码
+  调用云函数 -->
+  <!-- 登录逻辑
+  1.没有登录的时候,显示登录按钮
+  2.登录之后,显示微信头像,用户的openid是唯一标识 -->
+  <!-- 登录成功 -->
+  <view wx:if="{{userInfo.openid}}">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+    <view>{{userInfo.nickName}}</view>
+  </view>
+  <!-- 没有登录显示的图片 -->
+  <view wx:else>
+    <image class='avatar' src="http://image.shengxinjing.cn/rate/unlogin.png"></image>
+    <!-- 登录按钮 -->
+    <view>
+      <!-- type=getUserInfo,就是能直接获取用户信息,使用bindgetuserinfo获取回调 -->
+      <button size='mini' bindgetuserinfo="onGetUserinfo" open-type="getUserInfo">登录</button>
+    </view>
+  </view>
+  <!-- 添加图书部分 -->
+  <view>
+    <!-- wx:if表示是必须登录之后才可以看见的功能 -->
+    <button type='warn' bindtap="scanCode" wx:if="{{userInfo.openid}}">添加图书</button>
+    <button open-type="contact" type="warn">客服</button>
+  </view>
+</view>

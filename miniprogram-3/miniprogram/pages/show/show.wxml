@@ -1,0 +1,6 @@
+<!-- miniprogram/pages/show.wxml -->
+<view class="container"></view>
+<view wx:for="{{books}}" class="book-info">
+  <image class="book-cover" src="{{item.image}}" />
+  <view>{{item.title}}</view>
+</view>

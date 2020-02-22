@@ -1,0 +1,10 @@
+/* miniprogram/pages/show.wxss */
+.book-cover {
+  width: 100px;
+  height: 100px;
+  /* width: ; */
+}
+
+.book-info {
+  height: 300px;
+}
