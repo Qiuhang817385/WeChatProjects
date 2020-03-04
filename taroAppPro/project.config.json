@@ -1,18 +1,18 @@
 {
-  "miniprogramRoot": "dist/",
-  "projectname": "taroAppPro",
-  "description": "no",
-  "appid": "wx4f56602729f8e246",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram",
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
-  "condition": {},
-  "cloudfunctionRoot": "cloudfunctions/"
+	"miniprogramRoot": "dist/",
+	"projectname": "taroAppPro",
+	"description": "no",
+	"appid": "wx4f56602729f8e246",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
+	"cloudfunctionRoot": "cloudfunctions/",
+	"condition": {}
 }

@@ -1,0 +1,22 @@
+.active {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12PX;
+  padding: 0 10PX;
+  height: 30PX;
+  margin-top: 10PX;
+
+  .type {
+    color: #fff;
+    background-color: rgb(241, 46, 46);
+    width: 20PX;
+    height: 20PX;
+    border-radius: 1PX;
+    text-align: center;
+    line-height: 20PX;
+  }
+
+  .length {
+    color: #aaa;
+  }
+}
