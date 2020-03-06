@@ -5,6 +5,7 @@ import { connect } from '@tarojs/redux'
 import { add } from '../../actions/counter'
 import Head from '../../components/head/head';
 import Food from '../../components/food/food'
+import Bottom from '../../components/bottom/bottom'
 import './index.scss'
 
 @connect(({ counter }) => ({
@@ -35,6 +36,7 @@ class Index extends Component {
       <View className='index'>
         <Head></Head>
         <Food></Food>
+        <Bottom></Bottom>
       </View>
     )
   }

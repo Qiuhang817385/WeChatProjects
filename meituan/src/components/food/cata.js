@@ -1,7 +1,9 @@
 import Taro, { PureComponent } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import './cata.scss'
+import { getEvent } from '../../utils/common';
 
+let myEvent = getEvent();
 class Cata extends PureComponent {
 
   config = {
@@ -42,15 +44,25 @@ class Cata extends PureComponent {
     selectCata: null
   }
   // 这一段逻辑有待商榷
+  // 这里是传统的方法
   selectClick (item) {
     if (this.state.selectCata && this.state.selectCata.id != item.id) {
       this.setState({
         selectCata: item
+      }, () => {
+        // 调用父类的方法
+        this.props.onChangeCata &&
+          this.props.onChangeCata(this.state.selectCata);
       })
+      myEvent.emit("changeCata");
     } else {
       this.setState({
         selectCata: item
+      }, () => {
+        this.props.onChangeCata &&
+          this.props.onChangeCata(this.state.selectCata)
       })
+      myEvent.emit("changeCata");
     }
   }
 
