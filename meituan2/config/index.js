@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'meituan',
-  date: '2020-3-4',
+  projectName: 'meituan2',
+  date: '2020-3-11',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,
@@ -21,11 +21,11 @@ const config = {
       'transform-class-properties',
       'transform-object-rest-spread',
       ['transform-runtime', {
-        helpers: false,
-        polyfill: false,
-        regenerator: true,
-        moduleName: 'babel-runtime'
-      }
+          helpers: false,
+          polyfill: false,
+          regenerator: true,
+          moduleName: 'babel-runtime'
+        }
       ]
     ]
   },
@@ -65,9 +65,7 @@ const config = {
     }
   },
   h5: {
-    esnextModules: ['taro-ui'],
     publicPath: '/',
-    esnextModules: ['taro-ui'],
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {

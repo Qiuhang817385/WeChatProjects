@@ -1,0 +1,25 @@
+.addcart {
+  position: absolute;
+  right: 10PX;
+  bottom: 10PX;
+  display: flex;
+
+  .optionImg {
+    width: 28PX;
+    height: 28PX;
+  }
+
+  .num {
+    display: block;
+    min-width: 20PX;
+    height: 28PX;
+    line-height: 28PX;
+    font-size: 14PX;
+    text-align: center;
+    // vertical-align: top;
+  }
+
+  .hide {
+    display: none;
+  }
+}
