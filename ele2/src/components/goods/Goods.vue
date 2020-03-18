@@ -6,7 +6,8 @@
   <article>
     <section class="goods">
       <!-- 正常的数据展示 -->
-      <div class="menu-wrapper">
+      <div class="menu-wrapper"
+           ref="menuWrapper">
         <ul>
           <li v-for="(item, index) in goods"
               :key="index"
@@ -20,6 +21,7 @@
           </li>
         </ul>
       </div>
+      <!-- 右边 -->
       <vwrapper :goods="goods"></vwrapper>
     </section>
   </article>
@@ -28,7 +30,6 @@
 
 <script>
 import axios from 'axios';
-import GoodRightWrapper from './GoodRightWrapper'
 export default {
   components: {
     vwrapper: GoodRightWrapper
@@ -48,19 +49,22 @@ export default {
         .then((res) => {
           console.log('goodres', res.data);
           this.goods = res.data.data.goods;
-          // this.$nextTick(() => {
-          //   this._initScroll();
-          //   this._calculateHeight();
-          // });
+          this.$nextTick(() => {
+            // 问题，父组件获取到数据怎么使用子组件来完成初始化
+            // 问题是这个参数是子组件自己，而不是父组件，因此应该不能使用子组件调用父组件来初始化
+            // 那么如何保证异步
+            // this._initScroll();
+          });
         })
         .catch((e) => {
           console.log(e);
         });
-    }
+    },
   },
   data () {
     return {
-      goods: []
+      goods: [],
+      listHeight: []
     }
   },
 }
@@ -74,10 +78,12 @@ export default {
   top: 174px;
   bottom: 46px;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
   .menu-wrapper {
     flex: 0 0 80px;
     width: 82px;
+    height: 505px;
+    overflow: hidden;
     background: #f3f5f7;
     .menu-item {
       display: table;
