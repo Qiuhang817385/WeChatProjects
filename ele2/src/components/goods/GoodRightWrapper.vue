@@ -51,17 +51,75 @@
 </template>
 
 <script>
+import BScroll from '@better-scroll/core'
 export default {
   props: {
     goods: {
       type: Array,
     },
   },
-  mounted () {
+  beforeCreate () {
+    console.log()
   },
-  created () {
+  data () {
+    return {
+      Y: this.$store.state.goods.Y,
+      listHeight: this.$store.state.goods.listHeight
+    }
+  },
+  updated () {
+    console.log("updated-this.goods", this.goods)
+    this.$nextTick(() => {
+      this._initScroll()
+    })
+    this._calculateHeight();
+    console.log(this.scroll)
+  },
+  beforeUpdate () {
+    console.log("beforeUpdate-this.goods", this.goods)
+  },
+  mounted () {
+    console.log("mounted-this.goods", this.goods)
   },
   methods: {
+    callMethod (index) {
+      let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+      // 得到要滚动的位置
+      let el = foodList[index];
+      this.foodScroll.scrollToElement(el, 300);
+    },
+    _initScroll () {
+      this.foodScroll = new BScroll(this.$refs.foodsWrapper, {
+        scrollY: true,
+        click: true,
+        probeType: 3
+      })
+      console.log("this.foodScroll", this.foodScroll)
+      this.foodScroll.on('scroll', pos => {
+        // this.Y = ;
+        this.$store.commit("goods/musiy", Math.abs(Math.round(pos.y)))
+        // console.log(pos)
+      });
+    },
+    _calculateHeight () {
+      let foodList = this.$refs.foodsWrapper.getElementsByClassName(
+        'food-list-hook'
+      );
+      let height = 0;
+      // this.listHeight.push(height);
+      // 转换成commit
+      this.$store.commit('goods/listAdd', height)
+      for (let i = 0; i < foodList.length; i++) {
+        // 获取每个区块
+        let item = foodList[i];
+        // 每一个单个的区块高度,累加
+        height += item.clientHeight;
+        // 一个递增的区间数组
+        // this.listHeight.push(height);
+        // 转换成commit
+        this.$store.commit('goods/listAdd', height)
+      }
+    }
   },
 }
 </script>

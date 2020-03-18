@@ -9,12 +9,14 @@ module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
     ? './'
     : '/',
+
   chainWebpack: (config) => {
     config.resolve.alias
       .set('@', resolve('./src'))
       .set('@/assets', resolve('./src/assets'));
     // 配置sass
   },
+
   configureWebpack: {
     devServer: {
       port: 8888,
@@ -30,6 +32,22 @@ module.exports = {
         }
 
       }
+    }
+  },
+
+  css: {
+    loaderOptions: {
+      stylus: {
+        'resolve url': true,
+        'import': []
+      }
+    }
+  },
+
+  pluginOptions: {
+    'cube-ui': {
+      postCompile: false,
+      theme: false
     }
   }
 }
