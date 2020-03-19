@@ -45,6 +45,7 @@ import axios from 'axios';
 import { mapState } from 'vuex'
 
 
+
 export default {
   components: {
     vwrapper: GoodRightWrapper
