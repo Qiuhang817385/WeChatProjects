@@ -1,9 +1,14 @@
 const state = {
+  goods: [],
   counta: 1,
   listHeight: [],
   Y: 0,
 }
 const mutations = {
+  initGoods (state, goods) {
+    console.log('123')
+    state.goods = goods;
+  },
   listAdd (state, height) {
     //  state.listHeight.concta = list
     state.listHeight.push(height);
@@ -20,6 +25,7 @@ const actions = {
     commit('add')
   }
 }
+
 
 export default {
   namespaced: true,

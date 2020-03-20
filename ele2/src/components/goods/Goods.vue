@@ -28,8 +28,12 @@
       <!-- 右边 -->
       <!-- {{Y}} -->
       <!-- {{}} -->
-      <vwrapper :goods="goods"
-                ref='child'></vwrapper>
+      <vwrapper ref='child'></vwrapper>
+
+      <!-- 购物车组件 -->
+      <shopcart :deliveryPrice="seller.deliveryPrice"
+                :minPrice="seller.minPrice"></shopcart>
+
     </section>
 
   </article>
@@ -38,17 +42,17 @@
 
 <script>
 import GoodRightWrapper from './GoodRightWrapper';
+import shopcart from '../shopcart/shopcart'
 // import BScroll from 'better-scroll'
 import BScroll from '@better-scroll/core'
 import axios from 'axios';
 
 import { mapState } from 'vuex'
 
-
-
 export default {
   components: {
-    vwrapper: GoodRightWrapper
+    vwrapper: GoodRightWrapper,
+    shopcart
   },
   props: {
     seller: {
@@ -61,6 +65,7 @@ export default {
   },
   computed: mapState({
     Y: state => state.goods.Y,
+    goods: state => state.goods.goods,
     // 返回当前索引
     currentIndex: function () {
       for (let i = 0; i < this.listHeight.length; i++) {
@@ -78,13 +83,28 @@ export default {
       }
       return 0;
     },
+    // 购物车-------选择食物
+    // selectFoods () {
+    //   let foods = [];
+    //   this.goods.forEach((good) => {
+    //     good.foods.forEach((food) => {
+    //       if (food.count) {
+    //         foods.push(food);
+    //         console.log('gg')
+    //       }
+    //     });
+    //   });
+    //   return foods;
+    // },
   }),
   methods: {
+
     setAPI () {
       axios.get('/goods')
         .then((res) => {
           // console.log('goodres', res.data);
-          this.goods = res.data.data.goods;
+          this.$store.commit('goods/initGoods', res.data.data.goods)
+          // this.goods =res.data.data.goods;
           this.$nextTick(() => {
             // 问题，父组件获取到数据怎么使用子组件来完成初始化
             // 问题是这个参数是子组件自己，而不是父组件，因此应该不能使用子组件调用父组件来初始化
@@ -94,6 +114,8 @@ export default {
               scrollY: true,
               click: true,
             })
+            // 对购物车进行初始化,这个初始化是把所有的对象都放进去,后期判断的时候根据的是count字段
+
           });
         })
         .catch((e) => {
@@ -110,9 +132,8 @@ export default {
   },
   data () {
     return {
-      goods: [],
       // Y: this.$store.state.goods.Y,
-      listHeight: this.$store.state.goods.listHeight
+      listHeight: this.$store.state.goods.listHeight,
     }
   },
 }

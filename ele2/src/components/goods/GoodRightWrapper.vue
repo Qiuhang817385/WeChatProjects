@@ -16,6 +16,7 @@
             <li class="food-item border-1px"
                 v-for="(food, index) in item.foods"
                 :key="index">
+              <!-- @click="selectFood(food,$event)"详情点击,未完成 -->
               <div class="icon">
                 <img width="57px"
                      height="57px"
@@ -24,7 +25,7 @@
               </div>
               <!-- <img width="57px" height="57px" src="57.png" alt /> -->
               <!-- <div class="imgggg"></div> -->
-
+              <!-- 内容区域 -->
               <div class="content">
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
@@ -32,13 +33,15 @@
                   <span class="count">月售{{food.sellCount}}份</span>
                   <span>好评率{{food.rating}}%</span>
                 </div>
+                <!-- 价格 -->
                 <div class="price">
                   <span class="now">${{food.price}}</span>
                   <span v-show="food.oldPrice"
                         class="old">${{food.oldPrice}}</span>
                 </div>
+                <!-- 加减号 -->
                 <div class="cartcontrol-wrapper">
-                  <!-- <cartcontrol :food="food"></cartcontrol> -->
+                  <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
 
@@ -52,11 +55,14 @@
 
 <script>
 import BScroll from '@better-scroll/core'
+import cartcontrol from "../cartcontrol/cartcontrol"
+import { mapState } from 'vuex'
 export default {
-  props: {
-    goods: {
-      type: Array,
-    },
+  computed: mapState({
+    goods: state => state.goods.goods,
+  }),
+  components: {
+    cartcontrol
   },
   beforeCreate () {
     console.log()
@@ -82,6 +88,14 @@ export default {
     console.log("mounted-this.goods", this.goods)
   },
   methods: {
+    // selectFood (food, event) {
+    // if (!event._constructed) {
+    //   return;
+    // }
+    // this.selectedFood = food;
+    // this.$refs.food.show();
+    // console.log('详情')
+    // },
     callMethod (index) {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       // 得到要滚动的位置
@@ -127,6 +141,7 @@ export default {
 <style lang="scss" scoped>
 @import "../../common/stylus/mixin.scss";
 .core-container {
+  width: 100%;
   .foods-wrapper {
     height: 505px;
     flex: 1;

@@ -1,53 +1,39 @@
 <template>
   <div>
-    <div class="shopcart">
-      <div class="content" @click="toggleList">
-        <div class="content-left">
+    <article class="shopcart">
+      <!-- 内容 -->
+      <section class="content"
+               @click="toggleList">
+        <!-- 左侧 -->
+        <section class="content-left">
+          <!-- 第一部分 -->
           <div class="logo-wrapper">
-            <div class="logo" :class="{'highlight':totalCount>0}">
-              <span class="icon-shopping_cart" :class="{'highlight':totalCount>0}"></span>
+            <div class="logo"
+                 :class="{'highlight':totalCount>0}">
+              <span class="icon-shopping_cart"
+                    :class="{'highlight':totalCount>0}"></span>
             </div>
-            <div class="num" v-show="totalCount>0">{{totalCount}}</div>
+            <div class="num"
+                 v-show="totalCount>0">{{totalCount}}</div>
           </div>
-          <div class="price" :class="{'highlight':totalCount>0}">${{totalPrice}}</div>
+          <!-- 第二部分 -->
+          <div class="price"
+               :class="{'highlight':totalCount>0}">{{totalCount}}</div>
+          <!-- 第三部分 -->
           <div class="desc">另需配送费${{deliveryPrice}}元</div>
-        </div>
-        <div class="content-right" @click.stop.prevent="pay">
-          <div class="pay" :class="payClass">{{payDesc}}</div>
-        </div>
-      </div>
-
-      <transition name="slide-fade">
-        <div class="shopcart-list" v-show="listShow">
-          <div class="list-header">
-            <h1 class="title">购物车</h1>
-            <span class="empty" @click="empty">清空</span>
-          </div>
-          <div class="list-content" ref="listContent">
-            <ul>
-              <li class="food" v-for="food in selectFoods">
-                <span class="name">{{food.name}}</span>
-                <div class="price">
-                  <span>${{food.price*food.count}}</span>
-                </div>
-                <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </transition>
-    </div>
-    <transition name="fade">
-      <div class="listMask" v-show="listShow" @click="hideList"></div>
-    </transition>
+        </section>
+        <!-- 右侧 -->
+        <section class="content-right"
+                 @click.stop.prevent="pay">
+          <div class="pay"
+               :class="payClass">{{payDesc}}</div>
+        </section>
+      </section>
+    </article>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import BScroll from "better-scroll";
-import cartcontrol from "../cartcontrol/cartcontrol";
 export default {
   props: {
     deliveryPrice: {
@@ -60,7 +46,7 @@ export default {
     },
     selectFoods: {
       type: Array,
-      default() {
+      default () {
         return [
           {
             price: 10,
@@ -70,27 +56,29 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      fold: true
-    };
+  methods: {
+    toggleList () {
+      console.log(23412)
+    },
+    updated () {
+      console.log("sele", this.selectFoods())
+    },
+    pay () {
+      if (this.totalPrice < this.minPrice) {
+        return;
+      }
+      window.alert(`支付${this.totalPrice}元`);
+    }
   },
   computed: {
-    totalPrice() {
+    totalPrice () {
       let total = 0;
       this.selectFoods.forEach(food => {
         total += food.price * food.count;
       });
       return total;
     },
-    totalCount() {
-      let count = 0;
-      this.selectFoods.forEach(food => {
-        count += food.count;
-      });
-      return count;
-    },
-    payDesc() {
+    payDesc () {
       if (this.totalPrice === 0) {
         return `$${this.minPrice}元起送`;
       } else if (this.totalPrice < this.minPrice) {
@@ -100,62 +88,25 @@ export default {
         return "去结算";
       }
     },
-    payClass() {
+    payClass () {
       if (this.totalPrice < this.minPrice) {
         return "not-enough";
       } else {
         return "enough";
       }
     },
-    listShow() {
-      if (!this.totalCount) {
-        this.fold = true;
-        return false;
-      }
-      let show = !this.fold;
-      if (show) {
-        this.$nextTick(() => {
-          if (!this.scroll) {
-            this.scroll = new BScroll(this.$refs.listContent, {
-              click: true
-            });
-          } else {
-            this.scroll.refresh();
-          }
-        });
-      }
-      return true;
-    }
-  },
-  components: {
-    cartcontrol
-  },
-  methods: {
-    toggleList() {
-      if (!this.totalCount) {
-        return;
-      }
-      this.fold = !this.fold;
-    },
-    empty() {
+    totalCount () {
+      let count = 0;
       this.selectFoods.forEach(food => {
-        food.count = 0;
+        count += food.count;
       });
+      return count;
     },
-    hideList() {
-      this.fold = true;
-    },
-    pay() {
-      if (this.totalPrice < this.minPrice) {
-        return;
-      }
-      window.alert(`支付${this.totalPrice}元`);
-    }
-  }
-};
+  },
+}
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-@import '../../common/stylus/mixin.styl';
+<style lang="scss" >
+@import "../../common/stylus/mixin.scss";
 
 .shopcart {
   position: fixed;
@@ -303,7 +254,8 @@ export default {
       }
     }
 
-    .slide-fade-enter-active, .move-leave-active {
+    .slide-fade-enter-active,
+    .move-leave-active {
       transition: all 0.5s;
     }
 
@@ -317,7 +269,7 @@ export default {
         position: relative;
         padding: 12px 0;
         box-sizing: border-box;
-        border-1px(rgba(7, 17, 27, 0.1));
+        @include border-1px(rgba(7, 17, 27, 0.1));
 
         .name {
           line-height: 24px;
@@ -343,7 +295,8 @@ export default {
       }
     }
 
-    .slide-fade-enter, .slide-fade-leave-to {
+    .slide-fade-enter,
+    .slide-fade-leave-to {
       transform: translateY(100%);
     }
   }
