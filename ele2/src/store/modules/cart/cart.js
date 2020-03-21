@@ -17,7 +17,17 @@ const mutations = {
         count: 1
       })
     }
+  },
+  foodCartDec (state, item) {
+    state.foodCart.map((_) => {
+      if (_.name === item.name) {
+        if (_.count >= 1) {
+          _.count--
+        }
+      }
+    })
   }
+
 }
 
 const action = {
@@ -29,6 +39,24 @@ const getters = {
     if (food.count) {
       return food.count;
     }
+  },
+  getTotalCount: (state) => {
+    let num = 0;
+    state.foodCart.forEach(v => {
+      num += v.count;
+    })
+    return num;
+  },
+  getTotalPrice: (state) => {
+    // return state.foodCart.reduce(
+    //   (total, item) => total + item.cartCount * item.price,
+    //   0
+    // )
+    let total = 0;
+    state.foodCart.forEach(food => {
+      total += food.price * food.count;
+    })
+    return total
   }
 }
 

@@ -1,6 +1,5 @@
 const state = {
   goods: [],
-  counta: 1,
   listHeight: [],
   Y: 0,
 }

@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     setAPI () {
-      axios.get('/seller')
+      axios.get('http://www.qiuhang.club:7300/mock/5e3f72c000fbdf09dcf21f79/sell/api/seller')
         .then((res) => {
           console.log('res', res);
           if (res.data.errno === 0) {

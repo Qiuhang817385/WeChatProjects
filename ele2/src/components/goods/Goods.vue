@@ -100,7 +100,7 @@ export default {
   methods: {
 
     setAPI () {
-      axios.get('/goods')
+      axios.get('http://www.qiuhang.club:7300/mock/5e3f72c000fbdf09dcf21f79/sell/api/goods')
         .then((res) => {
           // console.log('goodres', res.data);
           this.$store.commit('goods/initGoods', res.data.data.goods)

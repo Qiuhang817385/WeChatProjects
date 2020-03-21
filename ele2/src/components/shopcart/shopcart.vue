@@ -9,16 +9,16 @@
           <!-- 第一部分 -->
           <div class="logo-wrapper">
             <div class="logo"
-                 :class="{'highlight':totalCount>0}">
+                 :class="{'highlight':getTotalCount>0}">
               <span class="icon-shopping_cart"
-                    :class="{'highlight':totalCount>0}"></span>
+                    :class="{'highlight':getTotalCount>0}"></span>
             </div>
             <div class="num"
-                 v-show="totalCount>0">{{totalCount}}</div>
+                 v-show="getTotalCount>0">{{getTotalCount}}</div>
           </div>
           <!-- 第二部分 -->
           <div class="price"
-               :class="{'highlight':totalCount>0}">{{totalCount}}</div>
+               :class="{'highlight':getTotalCount>0}">{{getTotalPrice}}</div>
           <!-- 第三部分 -->
           <div class="desc">另需配送费${{deliveryPrice}}元</div>
         </section>
@@ -34,6 +34,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState, mapGetters } from 'vuex';
 export default {
   props: {
     deliveryPrice: {
@@ -48,10 +49,6 @@ export default {
       type: Array,
       default () {
         return [
-          {
-            price: 10,
-            count: 2
-          }
         ];
       }
     }
@@ -64,43 +61,36 @@ export default {
       console.log("sele", this.selectFoods())
     },
     pay () {
-      if (this.totalPrice < this.minPrice) {
+      if (this.getTotalPrice < this.minPrice) {
         return;
       }
-      window.alert(`支付${this.totalPrice}元`);
+      window.alert(`支付${this.getTotalPrice}元`);
     }
   },
   computed: {
-    totalPrice () {
-      let total = 0;
-      this.selectFoods.forEach(food => {
-        total += food.price * food.count;
-      });
-      return total;
-    },
+    ...mapState({
+
+    }),
+    ...mapGetters({
+      getTotalCount: 'cart/getTotalCount',
+      getTotalPrice: 'cart/getTotalPrice'
+    }),
     payDesc () {
-      if (this.totalPrice === 0) {
+      if (this.getTotalPrice === 0) {
         return `$${this.minPrice}元起送`;
-      } else if (this.totalPrice < this.minPrice) {
-        let diff = this.minPrice - this.totalPrice;
+      } else if (this.getTotalPrice < this.minPrice) {
+        let diff = this.minPrice - this.getTotalPrice;
         return `还差$${diff}元起送`;
       } else {
         return "去结算";
       }
     },
     payClass () {
-      if (this.totalPrice < this.minPrice) {
+      if (this.getTotalPrice < this.minPrice) {
         return "not-enough";
       } else {
         return "enough";
       }
-    },
-    totalCount () {
-      let count = 0;
-      this.selectFoods.forEach(food => {
-        count += food.count;
-      });
-      return count;
     },
   },
 }

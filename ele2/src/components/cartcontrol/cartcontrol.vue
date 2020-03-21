@@ -1,24 +1,25 @@
 <template>
-  <div>
+  <div class="cartcontrol">
     <!-- 减少,如果<0 则不显示 -->
     <transition name="move">
       <div class="cart-decrease"
-           v-show="foodItem.count>0"
+           v-show="resu>0"
            @click.stop.prevent="decreaseCart">
         <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
     <!-- 增 -->
 
+    <!-- <div class="cart-count"
+         v-show="foodItem.count>0">{{foodItem.count}}</div> -->
     <div class="cart-count"
-         v-show="foodItem.count>0">{{foodItem.count}}</div>
+         v-show="resu>0">{{resu}}</div>
     <div class="cart-add icon-add_circle"
          @click.stop.prevent="addCart"></div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from 'vue'
 export default {
   mounted () {
     console.log("mounted")
@@ -28,7 +29,8 @@ export default {
   },
   data () {
     return {
-      foodItem: this.food
+      foodItem: this.food,
+      resu: 0
     }
   },
   computed: {
@@ -43,7 +45,10 @@ export default {
   },
   methods: {
     decreaseCart () {
-      console.log("dec")
+      // console.log("dec")
+      this.$store.commit('cart/foodCartDec', this.foodItem);
+      let result = this.$store.getters['cart/getItemCount'](this.foodItem);
+      this.resu = result;
     },
     addCart () {
       // console.log("add")
@@ -53,15 +58,10 @@ export default {
       // console.log(this.food.name)
       //  this.$store.commit('goods/listAdd', height)
       this.$store.commit('cart/foodCartAdd', this.foodItem);
-      // let result = this.$store.getters['cart/getItemCount'](this.foodItem);
+      let result = this.$store.getters['cart/getItemCount'](this.foodItem);
       //  Vue.set(this.foodItem,result, 1);
-      if (!this.foodItem.count) {
-        Vue.set(this.foodItem, "count", 1);
-        // this.foodItem.count = 1
-      } else {
-        this.foodItem.count++
-        // console.log("this.foodItem", this.foodItem)
-      }
+      console.log("result", result);
+      this.resu = result;
     }
   }
 
