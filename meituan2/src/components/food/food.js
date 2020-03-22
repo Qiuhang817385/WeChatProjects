@@ -43,7 +43,7 @@ class Food extends PureComponent {
             </View>
           </AtTabsPane>
           <AtTabsPane>
-            评价
+            评价1
           </AtTabsPane>
           <AtTabsPane>
             商家
