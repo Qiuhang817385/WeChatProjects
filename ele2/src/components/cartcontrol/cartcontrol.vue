@@ -9,7 +9,6 @@
       </div>
     </transition>
     <!-- 增 -->
-
     <!-- <div class="cart-count"
          v-show="foodItem.count>0">{{foodItem.count}}</div> -->
     <div class="cart-count"
@@ -34,9 +33,6 @@ export default {
     }
   },
   computed: {
-    // thisCount () {
-    //   return this.foodItem.count
-    // }
   },
   props: {
     food: {

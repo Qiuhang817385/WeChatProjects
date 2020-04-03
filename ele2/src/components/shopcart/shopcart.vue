@@ -64,7 +64,9 @@ export default {
       if (this.getTotalPrice < this.minPrice) {
         return;
       }
-      window.alert(`支付${this.getTotalPrice}元`);
+      // window.alert(`支付${this.getTotalPrice}元`);
+      console.log(`支付${this.getTotalPrice}元`);
+      this.$store.dispatch('app/setAPI')
     }
   },
   computed: {
