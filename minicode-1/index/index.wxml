@@ -1,5 +1,14 @@
 <view class="page-body">
   <view class="page-body-wrapper">
+    <input type="text" value="{{val}}" bindinput="handleInput" placeholder="请输入"></input>
+    <button bindtap="addTodo">添加</button>
+    <!-- /* 
+    
+      device-position 摄像头前面还是后面
+      flash 闪光
+      mode='scanCode'扫码的时候生效
+     */ -->
+    <camera class="" mode="normal" device-position="back" flash="auto" scan-area="[,,,]" bindstop="" bindscancode="" binderror=""></camera>
     <camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
     <view class="btn-area">
       <button type="primary" bindtap="takePhoto">拍照</button>
