@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 // 配置axios
 import axios from 'axios';
+import './plugin/rem'
 axios.defaults.baseURL = '/api'
 Vue.config.productionTip = false
 
