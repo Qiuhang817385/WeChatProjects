@@ -1,22 +1,25 @@
 <!-- index.wxml -->
 <view class="container">
-  <view class="title-text">第一个小程序{{age}}</view>
+  <!-- <view class="title-text">第一个小程序{{age}}</view>
   <input placeholder="这里是文本" value="{{val}}" bindinput="handleInput" />
   <button bindtap="addTodo">添加</button>
   <view wx:for="{{todos}}">
     <view>{{item}}</view>
-  </view>
-  <camera mode="normal" device-position="back" flash="off" style="width:100%;height:300px" />
-  <button type="primary" bindtap="toast">体验弹框</button>
-  <!-- view就相当于div
-    <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  </view> -->
+  <!-- <camera mode="normal" device-position="back" flash="off" style="width:100%;height:300px" /> -->
+  <!-- <button type="primary" bindtap="toast">体验弹框</button> -->
+  <!-- view就相当于div -->
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+      获取头像昵称
+    </button>
     <block wx:else>
+      <!-- 给图片绑定点击后的路径 -->
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view> -->
+  </view>
 </view>

@@ -117,6 +117,7 @@ Page({
       }
     })
   },
+  // 每个页面都需要wx.cloud来调用云函数
   handleClick() {
     console.log('123')
     wx.cloud.callFunction({
